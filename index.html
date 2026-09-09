@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Software Engineer – Aliaksandr Andronchyk</title>
+<meta name="description" content="Apple platforms, agents and automation. One page per role.">
+<meta property="og:title" content="Software Engineer – Aliaksandr Andronchyk">
+<meta property="og:description" content="Apple platforms, agents and automation. One page per role."><meta property="og:image" content="https://aliaksandr-andronchyk.github.io/ios-developer/shot-1.jpg">
+<style>
+:root{
+  --bg:#0d0f13; --bg2:#14171d; --line:#252a33; --fg:#e9ecf1; --dim:#98a1b0;
+  --accent:#7aa2ff; --chip:#1b1f27; --shadow:0 1px 0 rgba(255,255,255,.04), 0 12px 32px rgba(0,0,0,.35);
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#ffffff; --bg2:#f6f7f9; --line:#e3e6ec; --fg:#12151a; --dim:#5c6675;
+         --accent:#1b56d6; --chip:#eef1f6; --shadow:0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06); }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:17px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  font-feature-settings:"kern","liga";
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+header.top{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:14px;height:56px}
+header.top .who{font-weight:600;color:var(--fg);letter-spacing:-.01em}
+header.top .spacer{flex:1}
+header.top nav a{font-size:14px;color:var(--dim);margin-left:16px}
+header.top nav a:hover{color:var(--fg);text-decoration:none}
+
+.hero{padding:64px 0 12px}
+.eyebrow{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);margin:0 0 14px}
+h1{font-size:clamp(30px,5.2vw,46px);line-height:1.08;letter-spacing:-.028em;margin:0 0 14px;font-weight:680}
+.lead{font-size:clamp(18px,2.4vw,21px);line-height:1.5;color:var(--dim);margin:0;max-width:44em}
+.meta{margin:18px 0 0;color:var(--dim);font-size:15px}
+
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.btn{display:inline-block;padding:9px 16px;border:1px solid var(--line);border-radius:999px;
+  background:var(--bg2);color:var(--fg);font-size:15px;box-shadow:var(--shadow)}
+.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{color:#fff;opacity:.9}
+
+h2{font-size:13px;font-weight:640;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
+  margin:56px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{display:block;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);
+  box-shadow:var(--shadow);transition:border-color .15s ease,transform .15s ease}
+.card:hover{border-color:var(--accent);text-decoration:none;transform:translateY(-2px)}
+.card .t{font-weight:640;color:var(--fg);letter-spacing:-.012em;margin-bottom:6px}
+.card .d{font-size:15px;color:var(--dim);line-height:1.5}
+.card .k{margin-top:12px;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--dim);opacity:.75}
+
+.proj{border:1px solid var(--line);border-radius:14px;background:var(--bg2);padding:20px;
+  margin:0 0 12px;box-shadow:var(--shadow)}
+.proj .t{font-weight:640;letter-spacing:-.012em;margin-bottom:6px}
+.proj .d{color:var(--dim);font-size:16px}
+.proj .l{margin-top:10px;font-size:14px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.chips li{background:var(--chip);border:1px solid var(--line);border-radius:8px;
+  padding:5px 11px;font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--fg)}
+
+.shots{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg2);
+  box-shadow:var(--shadow)}
+figure img{display:block;width:100%;height:auto;background:var(--chip)}
+figcaption{font-size:13px;color:var(--dim);padding:10px 14px;border-top:1px solid var(--line)}
+
+footer{margin:72px 0 56px;padding-top:24px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}
+footer a{color:var(--dim)}
+@media (max-width:520px){ .hero{padding:40px 0 8px} h2{margin-top:44px} }
+</style></head>
+<body><header class="top"><div class="wrap">
+<a class="who" href="./">Aliaksandr Andronchyk</a><span class="spacer"></span>
+<nav><a href="./">Roles</a><a href="https://github.com/Aliaksandr-Andronchyk">GitHub</a><a href="https://www.linkedin.com/in/aliaksandr-andronchyk/">LinkedIn</a>
+<a href="mailto:Andronchyki@icloud.com">Email</a></nav></div></header><div class="wrap"><section class="hero"><p class="eyebrow">Software Engineer</p><h1>Aliaksandr Andronchyk</h1><p class="lead">Apple platforms, agents and automation. Thirteen roles, one page each – every page lists the shipped work that proves it.</p><p class="meta">Warsaw, Poland</p><div class="btns"><a class="btn" href="mailto:Andronchyki@icloud.com">Andronchyki@icloud.com</a><a class="btn" href="https://www.linkedin.com/in/aliaksandr-andronchyk/">LinkedIn</a><a class="btn" href="https://github.com/Aliaksandr-Andronchyk">GitHub</a><a class="btn" href="https://apps.apple.com/app/id6777449933">App Store</a></div></section><h2>Roles</h2><div class="grid"><a class="card" href="ios-developer/"><div class="t">iOS Developer</div><div class="d">Swift, SwiftUI, Vision, RevenueCat. Ships apps to the App Store end to end.</div><div class="k">Swift, SwiftUI, UIKit, Vision</div></a><a class="card" href="macos-developer/"><div class="t">macOS Developer</div><div class="d">AppKit and Swift on Apple platforms: overlays, screen capture, menu bar tools, native terminals.</div><div class="k">Swift, AppKit, SwiftUI, ScreenCaptureKit</div></a><a class="card" href="mobile-voice-ai/"><div class="t">iOS Engineer, Voice and On-Device AI</div><div class="d">Speech on device, deterministic matching in the hot path, LLM only asynchronously.</div><div class="k">Apple Speech, Vision, CoreML, SwiftUI</div></a><a class="card" href="ios-test-automation/"><div class="t">iOS Test Automation Engineer</div><div class="d">XCTest, XCUITest, simulator and device automation, screenshot regression.</div><div class="k">XCTest, XCUITest, simctl, fastlane</div></a><a class="card" href="release-engineer/"><div class="t">Release Engineer, Apple Platforms</div><div class="d">fastlane, TestFlight, App Store Connect API, codesign and provisioning.</div><div class="k">fastlane, XcodeGen, App Store Connect API, codesign</div></a><a class="card" href="browser-automation/"><div class="t">Browser Automation Engineer</div><div class="d">Playwright workers on live retailer sites, Chrome relay for agents, RPA flows.</div><div class="k">Playwright, Puppeteer, Chrome DevTools Protocol, Node.js</div></a><a class="card" href="backend-node/"><div class="t">Backend Engineer, Node.js</div><div class="d">20+ services in production on GCP behind a voice-first iOS app.</div><div class="k">Node.js, TypeScript, Python, FastAPI</div></a><a class="card" href="data-pipeline/"><div class="t">Data Pipeline Engineer</div><div class="d">Collection from many sources, dedup, scoring, ETL to SQLite and reports.</div><div class="k">Python, SQL, SQLite, pandas</div></a><a class="card" href="telegram-bot/"><div class="t">Telegram Bot Developer</div><div class="d">Bots and MTProto userbots that run every day.</div><div class="k">GramJS, MTProto, python-telegram-bot, aiogram</div></a><a class="card" href="ai-agent-mcp/"><div class="t">AI Agent and LLM Tooling Engineer</div><div class="d">Agent pipelines, MCP servers, tool calling, human-in-the-loop.</div><div class="k">MCP, Claude Code, tool calling, Python</div></a><a class="card" href="founding-ios/"><div class="t">Founding iOS Engineer</div><div class="d">Owns the product end to end: from brief to App Store review and post-release fixes.</div><div class="k">Swift, SwiftUI, backend on GCP, release pipeline</div></a><a class="card" href="prototype-engineer/"><div class="t">Prototype and Solutions Engineer</div><div class="d">Fast prototypes and integrations across iOS, macOS, backend, browser and AI.</div><div class="k">Swift, Python, Node.js, Playwright</div></a><a class="card" href="3d-interface/"><div class="t">3D Interface Developer</div><div class="d">SceneKit and Blender pipeline for real-time 3D UI on device.</div><div class="k">SceneKit, RealityKit, ARKit, USDZ</div></a></div><footer><div>Aliaksandr Andronchyk · Warsaw, Poland · <a href="mailto:Andronchyki@icloud.com">Andronchyki@icloud.com</a></div><div style="margin-top:6px">One page per role. <a href="./">All roles</a></div></footer></div></body></html>
