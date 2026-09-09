@@ -7,12 +7,12 @@
 <meta property="og:description" content="Bots and MTProto userbots that run every day.">
 <style>
 :root{
-  --bg:#0d0f13; --bg2:#14171d; --line:#252a33; --fg:#e9ecf1; --dim:#98a1b0;
-  --accent:#7aa2ff; --chip:#1b1f27; --shadow:0 1px 0 rgba(255,255,255,.04), 0 12px 32px rgba(0,0,0,.35);
+  --bg:#07090f; --bg2:#0d111a; --line:#1e2637; --fg:#e8edf5; --dim:#8e9aaf;
+  --accent:#3ee8ff; --pink:#ff3e7f; --chip:#111623; --shadow:0 1px 0 rgba(255,255,255,.04), 0 12px 32px rgba(0,0,0,.35);
 }
 @media (prefers-color-scheme: light){
   :root{ --bg:#ffffff; --bg2:#f6f7f9; --line:#e3e6ec; --fg:#12151a; --dim:#5c6675;
-         --accent:#1b56d6; --chip:#eef1f6; --shadow:0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06); }
+         --accent:#1b56d6; --pink:#c02060; --chip:#eef1f6; --shadow:0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06); }
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -21,7 +21,11 @@ body{
   font:17px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,Helvetica,Arial,sans-serif;
   font-feature-settings:"kern","liga";
 }
-.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(680px 420px at 12% -6%,rgba(62,232,255,.10),transparent 70%),
+             radial-gradient(620px 420px at 92% 4%,rgba(255,62,127,.08),transparent 70%)}
+@media (prefers-color-scheme: light){ body::before{display:none} }
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 22px}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
@@ -45,7 +49,10 @@ h1{font-size:clamp(30px,5.2vw,46px);line-height:1.08;letter-spacing:-.028em;marg
   background:var(--bg2);color:var(--fg);font-size:15px;box-shadow:var(--shadow)}
 .btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{color:#fff;opacity:.9}
+.btn.primary{color:#07090f}
+.btn.primary:hover{color:#07090f;opacity:.9}
+.btn.accent{border-color:var(--pink);color:var(--pink)}
+.btn.accent:hover{background:var(--pink);color:#fff;border-color:var(--pink)}
 
 h2{font-size:13px;font-weight:640;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);
   margin:56px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line);
