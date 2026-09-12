@@ -1,0 +1,62 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Прототип · чат-агент для Артёма Холоденко</title>
+<meta name="description" content="Персональный чат-агент «Прототип» – подарок Артёму Холоденко от Саши.">
+<meta property="og:title" content="Прототип · чат-агент для Артёма">
+<meta property="og:description" content="Помощник от Саши. Локальные LLM, VPS, бэктесты и немного магии.">
+<style>
+:root{--bg:#0a1628;--panel:#0f1f3a;--line:#1e3358;--me:#1a5fd6;--bot:#1b2b48;--cyan:#22c9f2;--red:#dc143c;--text:#eaf2ff;--mute:#8fa3c4}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#12305e 0%,var(--bg) 60%);color:var(--text);font:16px/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);background:rgba(10,22,40,.85);backdrop-filter:blur(8px);position:sticky;top:0}
+header h1{font-size:22px;margin:0;font-weight:700;letter-spacing:.2px}header h1 span{color:var(--cyan)}
+.flag{width:22px;height:15px;border-radius:3px;background:linear-gradient(#fff 50%,var(--red) 50%);box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+.city{color:var(--mute);font-size:13px;margin-left:auto}
+#gear{cursor:pointer;color:var(--cyan);font-size:22px;line-height:1;margin-left:10px}
+#panel{display:none;padding:12px 22px;border-bottom:1px solid var(--line);background:var(--panel);font-size:14px;color:var(--mute)}
+#panel input{width:100%;margin-top:6px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#0b182e;color:var(--text);font:inherit}
+#panel code{color:var(--cyan)}
+main{flex:1;overflow:auto;padding:18px 22px;display:flex;flex-direction:column;gap:6px}
+.msg{max-width:78%;padding:12px 16px;border-radius:16px;white-space:pre-wrap;word-wrap:break-word;box-shadow:0 6px 18px rgba(0,0,0,.25);animation:in .18s ease}
+.me{align-self:flex-end;background:linear-gradient(135deg,#2a74ff,var(--me));border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:var(--bot);border:1px solid var(--line);border-bottom-left-radius:4px}
+.meta{font-size:12px;color:var(--mute);margin:0 6px 8px}.me+.meta{align-self:flex-end}
+.think{color:var(--mute)}.think i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:4px;animation:b 1s infinite}.think i:nth-child(2){animation-delay:.2s}.think i:nth-child(3){animation-delay:.4s}
+@keyframes b{0%,80%,100%{opacity:.2}40%{opacity:1}}@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+#chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 10px}
+.chip{background:rgba(34,201,242,.08);border:1px solid rgba(34,201,242,.35);color:var(--cyan);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip:hover{background:rgba(34,201,242,.18)}
+footer{display:flex;gap:12px;padding:14px 22px 18px;border-top:1px solid var(--line);background:rgba(10,22,40,.9)}
+textarea{flex:1;resize:none;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#0b182e;color:var(--text);font:inherit;min-height:56px}
+textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,201,242,.15)}
+button#send{padding:0 28px;border:0;border-radius:14px;background:var(--cyan);color:#04121f;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 0 24px rgba(34,201,242,.45)}
+button#send:disabled{opacity:.5;box-shadow:none}
+#left{color:var(--mute);font-size:12px;padding:0 22px 10px;text-align:right}
+.empty{margin:auto;text-align:center;color:var(--mute);max-width:520px}.empty b{color:var(--text);font-size:18px;display:block;margin-bottom:6px}
+</style></head><body>
+<header><div class="flag" id="flag" title="Warszawa"></div><h1>Proto<span>typ</span> <small id="who" style="font-weight:400;color:var(--mute)"></small></h1><div class="city" id="city">Warszawa · Aliaksandr Andronchyk</div><div id="gear" onclick="panel.style.display=panel.style.display==='block'?'none':'block'">⚙</div></header>
+<div id="panel">Твой ключ гостя (уже вписан, хранится в этом браузере). Тот же ключ работает как OpenAI-совместимый endpoint: <code>POST https://api.34-175-214-103.sslip.io/v1/chat/completions</code>, заголовок <code>x-api-key</code>, модель <code>prototype</code>. 60 запросов в день.<input id="k" type="password" placeholder="ключ гостя"></div>
+<main id="log"><div class="empty" id="empty"><b id="et">Привет, Артём! Я Прототип.</b><span id="eb">Agent Aliaksandra: model językowy pod spodem, własna warstwa Aliaksandra na wierzchu (pamięć, narzędzia, relay do przeglądarki, orkiestracja). To tryb gościa: bez prywatnej pamięci i bez narzędzi. Pytaj po polsku albo po angielsku.</span></div></main>
+<div id="chips"></div><div id="left"></div>
+<footer><textarea id="q" placeholder="Zapytaj o coś…"></textarea><button id="send" onclick="go()">Wyślij</button></footer>
+<script>
+const log=document.getElementById('log'),K=document.getElementById('k'),Q=document.getElementById('q'),S=document.getElementById('send'),panel=document.getElementById('panel');let hist=[];let L='ru';
+const T={pl:{hi:'cześć',left:'Pozostało dziś: {a} z {b}',bad:'Nieprawidłowy klucz',ph:'Zapytaj o coś…',send:'Wyślij',you:'Ty',err:'Błąd połączenia: ',loc:'pl-PL',et:'Cześć! Jestem Prototyp.',eb:'Agent Aliaksandra: model językowy pod spodem, własna warstwa Aliaksandra na wierzchu (pamięć, narzędzia, relay do przeglądarki, orkiestracja). To tryb gościa: bez prywatnej pamięci i bez narzędzi. Pytaj po polsku albo po angielsku.',city:'Warszawa · Aliaksandr Andronchyk'},ru:{hi:'привет',left:'Осталось сегодня: {a} из {b}',bad:'Неверный ключ',ph:'Спроси о чём-нибудь…',send:'Отправить',you:'Ты',err:'Ошибка соединения: ',loc:'ru-RU',et:'Привет, Артём! Я Прототип.',eb:'Гибрид Саши: языковая модель внутри, сверху его собственный слой (память, инструменты, связь с браузером). Это гостевой вход: без личной памяти Саши и без инструментов, только текст и код. Я знаю про твой VPS, Qwen и CryptoMomentumLab – спрашивай, спорь.',city:'Для Артёма · от Саши'},en:{hi:'hi',left:'Left today: {a} of {b}',bad:'Invalid key',ph:'Ask something…',send:'Send',you:'You',err:'Connection error: ',loc:'en-GB',et:'Hi! I am Prototype.',eb:'Aliaksandr\'s agent: a language model underneath, his own layer on top (memory, tools, browser relay, orchestration). This is guest mode: no private memory, no tools. Ask in English or your language.',city:'Warsaw · Aliaksandr Andronchyk'}};
+function ui(){const t=T[L];document.documentElement.lang=L;Q.placeholder=t.ph;S.textContent=t.send;document.getElementById('city').textContent=t.city;document.getElementById('flag').style.display=L==='pl'?'':'none';const et=document.getElementById('et'),eb=document.getElementById('eb');if(et){et.textContent=t.et;eb.textContent=t.eb}}
+const u=new URL(location.href);if(u.searchParams.get('k')){K.value=u.searchParams.get('k');localStorage.setItem('gk',K.value);history.replaceState(null,'',location.pathname)}else K.value=localStorage.getItem('gk')||'artem-X42yCysUmYD7xkW9_Rw';
+K.addEventListener('change',()=>{localStorage.setItem('gk',K.value);who()});
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function add(cls,text,meta){const d=document.createElement('div');d.className='msg '+cls;d.textContent=text;log.appendChild(d);const m=document.createElement('div');m.className='meta';m.textContent=meta;log.appendChild(m);log.scrollTop=1e9;return d}
+async function who(){try{const r=await fetch('https://api.34-175-214-103.sslip.io/guest',{headers:{'x-api-key':K.value}});const j=await r.json();if(j.error){document.getElementById('left').textContent=T[L].bad;panel.style.display='block';return}L=T[j.lang]?j.lang:'ru';ui();
+document.getElementById('who').textContent=j.name?'· '+T[L].hi+', '+j.name:'';document.getElementById('left').textContent=T[L].left.replace('{a}',j.left).replace('{b}',j.limit);
+if(!hist.length&&j.history&&j.history.length){const e=document.getElementById('empty');if(e)e.remove();for(const p of j.history){hist.push({role:'user',content:p.q});add('me',p.q,T[L].you+' · '+(p.t||''));hist.push({role:'assistant',content:p.a});add('bot',p.a,L==='ru'?'Прототип':L==='en'?'Prototype':'Prototyp')}}
+document.getElementById('chips').innerHTML=(j.questions||[]).map(q=>'<span class="chip" onclick="ask(this.textContent)">'+esc(q)+'</span>').join('')}catch(e){}}
+function ask(t){Q.value=t;go()}
+async function go(){const q=Q.value.trim();if(!q||S.disabled)return;const e=document.getElementById('empty');if(e)e.remove();
+hist.push({role:'user',content:q});add('me',q,T[L].you+' · '+new Date().toLocaleTimeString(T[L].loc,{hour:'2-digit',minute:'2-digit'}));Q.value='';S.disabled=true;
+const w=add('bot think','',L==='ru'?'Прототип':L==='en'?'Prototype':'Prototyp');w.innerHTML='<i></i><i></i><i></i>';
+try{const r=await fetch('https://api.34-175-214-103.sslip.io/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':K.value},body:JSON.stringify({model:'prototype',messages:hist.slice(-12)})});
+const j=await r.json();const a=(j.choices&&j.choices[0].message.content)||(j.error&&j.error.message)||'?';hist.push({role:'assistant',content:a});w.className='msg bot';w.textContent=a}
+catch(err){w.className='msg bot';w.textContent=T[L].err+err}
+S.disabled=false;log.scrollTop=1e9;who()}
+Q.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();go()}});
+if(K.value)who();else panel.style.display='block';
+</script></body></html>
